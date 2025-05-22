@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monitoring KWH Meter</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <img src="logo.jpg" alt="Logo">
+      <h1>Ahmad Radifa Lab Monitoring KWH Meter</h1>
+    </div>
+    <nav>
+      <ul class="navbar">
+        <li><a href="#" id="pengaturan-button">Pengaturan Standar Pembayaran</a></li>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#" id="Pengaturan-daya-button">Pengaturan Peringatan Daya</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="main-container">
+    <div class="top-cards">
+      <div class="card">
+        <h2>Tegangan</h2>
+        <!-- Data tegangan -->
+        <p id="data-tegangan"></p>
+      </div>
+
+      <div class="card">
+        <h2>Arus</h2>
+        <!-- Data arus -->
+        <p id="data-arus"></p>
+      </div>
+
+      <div class="card">
+        <h2>Daya</h2>
+        <!-- Data daya -->
+        <p id="data-daya"></p>
+      </div>
+    </div>
+
+    <div class="bottom-cards">
+      <div class="card">
+        <h2>KWH</h2>
+        <!-- Data KWH -->
+        <p id="data-kwh"></p>
+      </div>
+
+      <div class="card">
+        <h2>Pembayaran</h2>
+        <!-- Data pembayaran -->
+        <p id="data-pembayaran"></p>
+      </div>
+    </div>
+
+    <div class="time-container">
+      <div class="clock">
+        <h2 id="clock-time"></h2>
+        <h2>WITA</h2>
+      </div>
+      <h2 id="clock-date"></h2>
+    </div>
+  </div>
+
+  <!-- Popup -->
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <h2>Pengaturan Standar Pembayaran</h2>
+      <form>
+        <label for="harga">Standar Pembayaran Harga KWM/Jam</label>
+        <input type="number" id="harga-input" name="harga" required>
+
+        <div class="button-container">
+          <button type="button" id="simpan-button" class="save-button">Simpan</button>
+          <button type="button" id="batal-button" class="cancel-button">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Popup Peringatan daya -->
+  <div id="popup-daya" class="popup">
+    <div class="popup-content">
+      <h2>Pengaturan peringatan daya</h2>
+      <form>
+        <label for="daya">Standar daya (dalam Satuan Waat)</label>
+        <input type="number" id="peringatan-daya" name="daya" required>
+
+        <div class="button-container">
+          <button type="button" id="simpan-button-daya" class="save-button">Simpan</button>
+          <button type="button" id="batal-button-daya" class="cancel-button">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const pengaturanButton = document.getElementById('Pengaturan-daya-button');
+      const popup = document.getElementById('popup-daya');
+
+      pengaturanButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        popup.style.display = 'block';
+      });
+
+      const simpanButton = document.getElementById('simpan-button-daya');
+      const batalButton = document.getElementById('batal-button-daya');
+
+      simpanButton.addEventListener('click', function() {
+        const daya = document.getElementById('peringatan-daya').value;
+
+        // Lakukan operasi atau simpan nilai sesuai kebutuhan
+        // ...
+
+        popup.style.display = 'none';
+      });
+
+      batalButton.addEventListener('click', function() {
+        popup.style.display = 'none';
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const pengaturanButton = document.getElementById('pengaturan-button');
+      const popup = document.getElementById('popup');
+
+      pengaturanButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        popup.style.display = 'block';
+      });
+
+      const simpanButton = document.getElementById('simpan-button');
+      const batalButton = document.getElementById('batal-button');
+
+      simpanButton.addEventListener('click', function() {
+        const harga = document.getElementById('harga-input').value;
+
+        // Lakukan operasi atau simpan nilai sesuai kebutuhan
+       // ...
+
+        popup.style.display = 'none';
+      });
+
+      batalButton.addEventListener('click', function() {
+        popup.style.display = 'none';
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const updateSensorData = (data) => {
+        const teganganElement = document.getElementById('data-tegangan');
+        const arusElement = document.getElementById('data-arus');
+        const dayaElement = document.getElementById('data-daya');
+        const kwhElement = document.getElementById('data-kwh');
+        const pembayaranElement = document.getElementById('data-pembayaran');
+
+        // Mengisi elemen-elemen dengan data yang diterima
+        teganganElement.innerText = data.tegangan;
+        arusElement.innerText = data.arus;
+        dayaElement.innerText = data.daya;
+        kwhElement.innerText = data.kwh;
+        pembayaranElement.innerText = data.pembayaran;
+      };
+
+      const updateTime = () => {
+        const clockTimeElement = document.getElementById('clock-time');
+        const clockDateElement = document.getElementById('clock-date');
+
+        const now = new Date();
+        const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        const dateOptions = { day: '2-digit', month: 'long', year: 'numeric' };
+
+        clockTimeElement.innerText = now.toLocaleTimeString('id-ID', timeOptions);
+        clockDateElement.innerText = now.toLocaleDateString('id-ID', dateOptions);
+      };
+
+      // Membuat koneksi WebSocket
+      const socket = new WebSocket("ws://localhost:3000/data-stream");
+
+      // Meng-handle pesan yang diterima dari WebSocket
+      socket.onmessage = (event) => {
+        const sensorData = JSON.parse(event.data);
+        updateSensorData(sensorData);
+      };
+
+      // Meng-update waktu secara periodik
+      setInterval(updateTime, 1000);
+    });
+
+  </script>
+</body>
+
+</html>

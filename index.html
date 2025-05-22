@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="body-contain">
+        <div class="sidebar-saction">
+            sidebar
+        </div>
+        <div class="contain-main">
+            <div class="head-section">
+                head
+            </div>            
+            <div class="main-setion">
+                main
+            </div>
+            <footer>
+                foot
+            </footer>
+        </div>
+    </div>
+
+    <!-- ... (kode sebelumnya) -->
+
+<div id="notification-popup" class="popup">
+  <div class="popup-content">
+    <h2>Pemberitahuan</h2>
+    <p id="notification-message"></p>
+    <button type="button" id="close-notification-button">Tutup</button>
+  </div>
+</div>
+
+<!-- ... Bagian HTML lainnya ... -->
+
+<!-- ... Bagian HTML lainnya ... -->
+
+<script>
+  function showNotificationPopup(message) {
+    const notificationPopup = document.getElementById('notification-popup');
+    const notificationMessage = document.getElementById('notification-message');
+
+    notificationMessage.innerText = message;
+    notificationPopup.style.display = 'block';
+
+    const closeNotificationButton = document.getElementById('close-notification-button');
+    closeNotificationButton.addEventListener('click', function() {
+      notificationPopup.style.display = 'none';
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const pengaturanButton = document.getElementById('Pengaturan-daya-button');
+    const popupDaya = document.getElementById('popup-daya');
+    const popup = document.getElementById('popup');
+    const simpanButtonDaya = document.getElementById('simpan-button-daya');
+    const batalButtonDaya = document.getElementById('batal-button-daya');
+    const simpanButton = document.getElementById('simpan-button');
+    const batalButton = document.getElementById('batal-button');
+    const hargaInput = document.getElementById('harga-input');
+
+    pengaturanButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      popupDaya.style.display = 'block';
+    });
+
+    simpanButtonDaya.addEventListener('click', function() {
+      const peringatanKwh = document.getElementById('peringatan-daya').value;
+
+      const data = {
+        peringatanKwh: peringatanKwh
+      };
+
+      const jsonData = JSON.stringify(data);
+
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: jsonData
+      };
+
+      fetch('http://localhost:3000/peringatan-KWH', requestOptions)
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error('Server tidak ditemukan maseeh !');
+          }
+        })
+        .then(responseKWH => {
+          console.log(responseKWH);
+          showNotificationPopup('Data berhasil diubah!');
+        })
+        .catch(error => console.log(error));
+
+      popupDaya.style.display = 'none';
+    });
+
+    batalButtonDaya.addEventListener('click', function() {
+      popupDaya.style.display = 'none';
+    });
+
+    hargaInput.addEventListener('keydown', function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        simpanButton.click();
+      }
+    });
+
+    simpanButton.addEventListener('click', function() {
+      const harga = hargaInput.value;
+
+      const data = {
+        harga: harga
+      };
+
+      const jsonData = JSON.stringify(data);
+
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: jsonData
+      };
+
+      fetch('http://localhost:3000/standar-biaya', requestOptions)
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error('Server Tidak Ditemukan Om');
+          }
+        })
+        .then(responseData => {
+          console.log(responseData);
+          showNotificationPopup('Data berhasil diubah!');
+        })
+        .catch(error => console.error(error));
+
+      popup.style.display = 'none';
+    });
+
+    batalButton.addEventListener('click', function() {
+      popup.style.display = 'none';
+    });
+
+    // ... Kodingan lainnya ...
+  });
+</script>
+</body>
+</html>
+

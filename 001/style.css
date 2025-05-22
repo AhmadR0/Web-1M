@@ -1,0 +1,204 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+    background-color: #1c1c1c;
+    padding: 20px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .navbar {
+    list-style-type: none;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .navbar li {
+    display: inline-block;
+    margin: 0 10px;
+  }
+  
+  .navbar li a {
+    text-decoration: none;
+    color: #000;
+    background-color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: background-color 0.3s, color 0.3s;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .navbar li a:hover {
+    background-color: #000;
+    color: #fff;
+  }
+  
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .header-content img {
+    width: 70px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .header-content h1 {
+    color: #fff;
+    margin: 0;
+  }
+  
+  .main-container {
+    /* display: flex;
+    flex-wrap: wrap; */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    justify-items: center;
+    margin-top: 20px;
+  }
+  
+  .top-cards {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .bottom-cards {
+    display: flex;
+    justify-content: center;
+  } 
+  
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    color:#1c1c1c;;
+  }
+
+  .card {
+    background-color: #1c1c1c;
+    color: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    margin-right: 20px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    min-width: 200px; /* Atur lebar minimum card sesuai kebutuhan Anda */
+  }
+  .card h2{
+    padding-top: 0;
+  }
+
+ 
+  .top-cards { 
+    margin-right: 20px; 
+  }
+  .card-content{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .card-content p{
+    padding-right: 5px;
+  }
+  
+  .bottom-cards {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px; /* Atur jarak di antara card-card di bagian bawah */
+  } 
+  .time-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .time-container h2{
+    margin: 3px;
+  }
+  .clock{
+    display: flex;
+  }
+  
+  .popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+  }
+  
+  .popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px; /* Menyesuaikan lebar popup */
+  }
+  
+  .popup-content h2 {
+    margin-top: 0;
+  }
+  
+  .popup-content form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .popup-content label {
+    margin-bottom: 10px;
+    text-align: left;
+  }
+  
+  .popup-content input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .popup-content button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #1c1c1c;
+    color: #fff;
+    margin-top: 10px;
+    margin-right: 10px;
+    flex-grow: 1; /* Menyesuaikan lebar tombol */
+    cursor: pointer;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Menambahkan efek shadow */
+  }
+  .popup-content button:last-child {
+    margin-top: 10px;
+    margin-right: 0;
+    background-color: #fff;
+    color: #000;
+    flex-grow: 1; /* Menyesuaikan lebar tombol */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Menambahkan efek shadow */
+  }  
+
+  .popup-content input[type="text"]:hover,
+  .popup-content input[type="number"]:hover {
+    box-shadow: 0px 0px 5px 2px skyblue; /* Efek shadow saat hover */
+  }
+  
+  

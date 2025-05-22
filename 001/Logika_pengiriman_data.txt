@@ -1,0 +1,60 @@
+document.addEventListener('DOMContentLoaded', function() {
+  const pengaturanButton = document.getElementById('pengaturan-button');
+  const popup = document.getElementById('popup');
+
+  pengaturanButton.addEventListener('click', function(e) {
+    e.preventDefault();
+    popup.style.display = 'block';
+  });
+
+  const simpanButton = document.getElementById('simpan-button');
+  const batalButton = document.getElementById('batal-button');
+
+  simpanButton.addEventListener('click', function() {
+    const harga = document.getElementById('harga-input').value;
+
+    // Validasi input
+    if (harga === '') {
+      alert('Silakan masukkan nilai standar biaya.');
+      return;
+    }
+
+    // Mengirim nilai standar biaya ke server
+    fetch('http://localhost:3000/standar-biaya', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ harga: harga })
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error response from server');
+        }
+      })
+      .then(data => {
+        console.log('Data berhasil disimpan:', data);
+        popup.style.display = 'none';
+      })
+      .catch(error => {
+        console.error('Terjadi kesalahan:', error);
+        alert('Terjadi kesalahan saat menyimpan data.');
+      });
+  });
+
+  batalButton.addEventListener('click', function() {
+    popup.style.display = 'none';
+  });
+});
+
+
+///
+
+//logika penerimaan.
+app.get("/kirim-esp",(req,res)=>{
+ connection.query(standarBiaya,(error,result)=>{
+  res.status(200).json(harga);
+ });
+});
